@@ -35,11 +35,6 @@
 
   <div class="taskbar">
     <button class="startbutton"></button>
-    <!-- this is the default state.
-    the button above is used for hover and active.
-    if you want the active state to stick, switch the
-    class on the button to .startbuttonactive and
-    it will stick. -->
     <div class="startorb"></div>
       <div class="taskbaricons" id="taskbaricons">
         <button class="taskbarbutton taskbarfocused" style="--img-colour: rgb(102, 127.5, 204); --mouse-x: 55px; --mouse-y: 16px;"><img class="taskbaricon" draggable="false" src="./resources/img/information.png"></button>
@@ -70,7 +65,7 @@
 
 <!-- Window -->
   
-    <div class="window" style="width: 350px; top: 143px; left: 881px;" id="window">
+    <div class="window" style="width: 900px; top: 10px; left: 530px;" id="window">
         <div class="title-bar" id="windowheader">
             <img aria-label="windowicon" src="resources/img/information.png">
           <div class="title-bar-text">Info</div>
@@ -80,7 +75,12 @@
             <button aria-label="Close"></button>
           </div>
         </div>
-        <div class="window-body" style="height:245px;">
+        <div class="window-body" style="height:845px;">
+          <div>
+            <img src="resources/img/pfp.jpg" style="max-width: 200px; max-height: 200px;">
+            <p>Hi! My name is Semyon.</p>
+            <br> <p>This site is just a passion project with a style of Windows 7</p>
+          </div>
           <!--<p>DevBuild Text</p>
           <br> <p>lalalala css is epick.</p>
 
@@ -103,6 +103,11 @@
             <button>OK</button>
             <button>Cancel</button>
           </section> -->
+
+          <div class="field-row" style="bottom: 20px; position: absolute;">
+            <img src="resources/img/advert1.png" style="max-width: 300px; max-height: 150px; margin-left: 75px;" alt="">
+            <img src="resources/img/advert2.png" style="max-width: 300px; max-height: 150px; margin-left: 100px;" alt="">
+          </div>
         </div>
       </div>
 
