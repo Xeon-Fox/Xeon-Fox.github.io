@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+  <title>Semyon's page</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("resources/img/bg.jpg");
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-wrap: wrap;
+    flex-direction: column;
+    }
+
+    img{
+      user-select: none;
+      pointer-events: none;
+    }
+  </style>
+
+</head>
+<body data-new-gr-c-s-check-loaded="8.927.0" data-gr-ext-installed="">
+
+  <!-- ref imgs
+  https://i.ytimg.com/vi/lfgi26il37I/maxresdefault.jpg
+  https://www.webdevelopersnotes.com/blog/blog-images/windows-7-taskbar-with-icons.png -->
+
+  <!-- TaskBar -->
+
+  <div class="taskbar">
+    <button class="startbutton startbuttonactive"></button>
+    <!-- this is the default state.
+    the button above is used for hover and active.
+    if you want the active state to stick, switch the
+    class on the button to .startbuttonactive and
+    it will stick. -->
+    <div class="startorb"></div>
+      <div class="taskbaricons" id="taskbaricons">
+        <button class="taskbarbutton taskbarfocused" style="--img-colour: rgb(102, 127.5, 204); --mouse-x: 55px; --mouse-y: 16px;"><img class="taskbaricon" draggable="false" src="./icons/information.png"></button>
+      </div>
+      <div class="datetime"></div>
+      <div class="aeropeek"></div>
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start hidden">
+    <div class="startrightcontainer">
+    <div class="profileicon startprofileimage">
+      <img src="resources/svg/avframe.svg" class="glass profile-border">
+      <img src="resources/img/pfp.jpg" class="profileimg">
+      </div>
+      <div class="startmenuexplorebuttons">
+      <button class="StartMenuButton">Documents</button>
+      <button class="StartMenuButton">Pictures</button>
+      <button class="StartMenuButton">Music</button>
+      <button class="StartMenuButton">Computer</button>
+      <button class="StartMenuButton">Control Panel</button>
+      <button class="StartMenuButton">Default Programs</button>
+      <button class="StartMenuButton">Help and Support</button>
+    </div>
+    </div>
+    <div class="startinner"></div>
+  </div>
+
+<!-- Window -->
+  
+    <div class="window" style="width: 350px; top: 143px; left: 881px;" id="window">
+        <div class="title-bar" id="windowheader">
+            <img aria-label="windowicon" src="./icons/information.png">
+          <div class="title-bar-text">Info</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="window-body" style="height:245px;">
+          <!--<p>DevBuild Text</p>
+          <br> <p>lalalala css is epick.</p>
+
+          <input type="checkbox" id="checkbox1">
+          <label for="checkbox1">click me and ill tick myself</label>
+
+          <fieldset>
+            <div class="field-row">radio buttons:</div>
+            <div class="field-row">
+              <input id="radio5" type="radio" name="fieldset-example">
+              <label for="radio5">Me?</label>
+            </div>
+            <div class="field-row">
+              <input id="radio6" type="radio" name="fieldset-example">
+              <label for="radio6">No, Me!</label>
+            </div>
+          </fieldset>
+
+          <section class="field-row" style="justify-content: flex-end">
+            <button>OK</button>
+            <button>Cancel</button>
+          </section> -->
+        </div>
+      </div>
+
+
+      <!-- window drag -->
+      <script src="JS/WindowDrag.js"></script>
+
+<!-- Taskbar Gradient Hover -->
+<script src="JS/TaskbarGradient.js"></script>
+
+
+<script src="JS/StartButton.js"></script>
+</body>
