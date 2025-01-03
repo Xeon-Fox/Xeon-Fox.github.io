@@ -140,18 +140,18 @@ button{
 }
 
 .title-bar-controls button[aria-label="Close"]::before{
-  background: url("./assets/X.svg") no-repeat center;
+  background: url("../resources/svg/X.svg") no-repeat center;
   background-size: 14px;
 }
 
 .title-bar-controls button[aria-label="Minimize"]::before{
-  background: url("./assets/Minimise.svg") no-repeat center;
+  background: url("../resources/svg/Minimise.svg") no-repeat center;
   background-size: 14px;
   background-position-y: 10px;
 }
 
 .title-bar-controls button[aria-label="Maximize"]::before{
-  background: url("./assets/Maximise.svg") no-repeat center;
+  background: url("../resources/svg/Maximise.svg") no-repeat center;
   background-size: 14px;
 }
 
