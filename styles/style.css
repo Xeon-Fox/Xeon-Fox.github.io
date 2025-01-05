@@ -295,6 +295,30 @@ img[aria-label="windowicon"]{
   filter: drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.667));
 }
 
+/* Desktop */
+.desktop{
+  display: flex;
+  flex-direction: column; 
+  left: 5px;
+  position: absolute;
+  top: 10px;
+  height: 1000px;
+  width: 100px;
+}
+
+.desktopicon:hover{
+  border: none !important;
+  outline: inset 1px #ffffff !important;
+  padding: 0px !important;
+  min-height: 0px !important;
+  min-width: 0px !important;
+  width: 90px;
+  height: 75px;
+  border-radius: 2px;
+  z-index: 1;
+  background-color: #b0efff50;
+  /* box-shadow:0 0 0 2px #000000; */
+}
 
 
 /* SuperBar */
