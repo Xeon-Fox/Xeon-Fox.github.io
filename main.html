@@ -30,6 +30,41 @@
 
 </head>
 <body data-new-gr-c-s-check-loaded="8.927.0" data-gr-ext-installed="">
+  <!-- Desktop -->
+  <div class="desktop">
+    <div class="desktopicon">
+        <div style="position: absolute; left: 20px; user-select: none;">
+          <img src="resources/img/information.png" alt="" style="justify-content: flex-start;display: flex;max-height: 50px;">
+          <p style="color: white; margin-left: 11px;">Info</p>
+        </div>
+    </div>
+    <div class="desktopicon" style="position: absolute;top: 100px;">
+      <div style="position: absolute; left: 20px; user-select: none;">
+        <img src="resources/ico/trash.ico" alt="" style="justify-content: flex-start;display: flex;max-height: 50px;">
+        <p style="color: white;">Recycle Bin</p>
+      </div>
+    </div>
+    <div class="desktopicon" style="position: absolute;top: 200px;">
+      <div style="position: absolute; left: 20px; user-select: none;">
+        <img src="resources/ico/pc.ico" alt="" style="justify-content: flex-start;display: flex;max-height: 50px;">
+        <p style="color: white;">My PC</p>
+      </div>
+    </div>
+    <div class="desktopicon" style="position: absolute;top: 300px;">
+      <div style="position: absolute; left: 20px; user-select: none;">
+        <img src="resources/ico/player.ico" alt="" style="justify-content: flex-start;display: flex;max-height: 50px;">
+        <p style="color: white; margin-left: 5px;">Music</p>
+      </div>
+    </div>
+    <div class="desktopicon" style="position: absolute;top: 400px;">
+      <div style="position: absolute; left: 20px; user-select: none;">
+        <img src="resources/ico/vid.ico" alt="" style="justify-content: flex-start;display: flex;max-height: 50px;">
+        <p style="color: white; margin-left: 1px;">Videos</p>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- TaskBar -->
 
@@ -81,29 +116,6 @@
             <p>Hi! My name is Semyon.</p>
             <br> <p>This site is just a passion project with a style of Windows 7</p>
           </div>
-          <!--<p>DevBuild Text</p>
-          <br> <p>lalalala css is epick.</p>
-
-          <input type="checkbox" id="checkbox1">
-          <label for="checkbox1">click me and ill tick myself</label>
-
-          <fieldset>
-            <div class="field-row">radio buttons:</div>
-            <div class="field-row">
-              <input id="radio5" type="radio" name="fieldset-example">
-              <label for="radio5">Me?</label>
-            </div>
-            <div class="field-row">
-              <input id="radio6" type="radio" name="fieldset-example">
-              <label for="radio6">No, Me!</label>
-            </div>
-          </fieldset>
-
-          <section class="field-row" style="justify-content: flex-end">
-            <button>OK</button>
-            <button>Cancel</button>
-          </section> -->
-
           <div class="field-row" style="bottom: 20px; position: absolute;">
             <img src="resources/img/advert1.png" style="max-width: 300px; max-height: 150px; margin-left: 75px;" alt="">
             <img src="resources/img/advert2.png" style="max-width: 300px; max-height: 150px; margin-left: 100px;" alt="">
@@ -115,10 +127,29 @@
       <!-- window drag -->
       <script src="JS/WindowDrag.js"></script>
 
+ <!-- window buttons  -->
+<script src="JS/WindowButtons.js"></script>
+
+<script src="JS/DesktopButtons.js"></script>
+
 <!-- Taskbar Gradient Hover -->
 <script src="JS/TaskbarGradient.js"></script>
 
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+      const audio = new Audio('resources/audio/startup.mp3');
+      const startAudio = () => {
+          audio.play().then(() => {
+              document.removeEventListener('mousemove', startAudio);
+              document.removeEventListener('click', startAudio);
+          });
+      };
+      document.addEventListener('mousemove', startAudio);
+      document.addEventListener('click', startAudio);
+  });
 
+
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6N7FC828GN"></script>
 <script>
@@ -128,7 +159,5 @@
 
   gtag('config', 'G-6N7FC828GN');
 </script>
-
-
 <script src="JS/StartButton.js"></script>
 </body>
