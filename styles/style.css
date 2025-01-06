@@ -284,10 +284,6 @@ button{
   align-items: center;
 }
 
-.advert[img]{
-  max-width: 400px;
-  max-height: 200px;
-}
 
 img[aria-label="windowicon"]{
   max-height: 20px;
