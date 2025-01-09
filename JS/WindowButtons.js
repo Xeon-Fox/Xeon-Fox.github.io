@@ -4,6 +4,7 @@ const maximizeButton = document.querySelector('[aria-label="Maximize"]');
 const closeButton = document.querySelector('[aria-label="Close"]');
 const windowElement = document.getElementById('window');
 const taskbarButton = document.querySelector('.taskbarbutton');
+const aeroPeekDiv = document.querySelector('.aeropeek');
 
 // Флаг для отслеживания состояния окна (развёрнуто/свёрнуто)
 let isMaximized = false;
@@ -38,7 +39,21 @@ maximizeButton.addEventListener('click', () => {
 closeButton.addEventListener('click', () => {
   windowElement.style.display = 'none';
   taskbarButton.classList.remove('taskbarfocused');
+
+  // Сбрасываем позицию окна на исходную
+  windowElement.style.top = '10px';
+  windowElement.style.left = '530px';
+  windowElement.style.width = '900px';
+  windowElement.style.height = 'auto';
 });
+
+// Обработчик для нажатия на Aero Peek
+if (aeroPeekDiv) {
+  aeroPeekDiv.addEventListener('click', () => {
+    windowElement.style.display = 'none';
+    taskbarButton.classList.remove('taskbarfocused');
+  });
+}
 
 // Обработчик для нажатия на кнопку в панели задач
 // Если окно свёрнуто, его нужно снова показать
