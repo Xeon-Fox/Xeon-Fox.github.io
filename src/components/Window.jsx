@@ -1,4 +1,4 @@
-// Window.js
+// components/Window.js
 import React, { useRef, useEffect, useState } from 'react';
 
 const Window = ({ windowData, bringToFront, updateWindow, children }) => {
@@ -6,9 +6,8 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
   const [dragging, setDragging] = useState(false);
   const [relPos, setRelPos] = useState({ x: 0, y: 0 });
 
-  // Обработчик начала перетаскивания
+  // Начало перетаскивания (при клике по заголовку)
   const onMouseDown = (e) => {
-    // Если клик по заголовку окна
     if (e.target.closest('.title-bar')) {
       const rect = windowRef.current.getBoundingClientRect();
       setRelPos({
@@ -20,7 +19,7 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
     }
   };
 
-  // Обработчик движения мыши
+  // Обработка движения мыши
   const onMouseMove = (e) => {
     if (!dragging || windowData.isMaximized) return;
     const newLeft = e.clientX - relPos.x;
@@ -47,23 +46,29 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
     };
   }, [dragging, relPos]);
 
-  // Обработчики для кнопок окна
+  // Обработчики кнопок окна
   const handleMinimize = () => {
     updateWindow(windowData.id, { visible: false });
   };
 
   const handleMaximize = () => {
     if (windowData.isMaximized) {
-      // Возвращаем предыдущее положение и размер
-      updateWindow(windowData.id, {
-        isMaximized: false,
-        position: { top: 10, left: windowData.id === 'links' ? 530 : 20 },
-        size: windowData.id === 'links'
-          ? { width: 900, height: 'auto' }
-          : windowData.size,
-      });
+      // При выходе из максимизированного режима восстанавливаем предыдущее состояние
+      if (windowData.prevState) {
+        updateWindow(windowData.id, {
+          isMaximized: false,
+          position: windowData.prevState.position,
+          size: windowData.prevState.size,
+          prevState: undefined,
+        });
+      }
     } else {
+      // Сохраняем текущее состояние перед максимизацией
       updateWindow(windowData.id, {
+        prevState: {
+          position: windowData.position,
+          size: windowData.size,
+        },
         isMaximized: true,
       });
     }
@@ -74,14 +79,14 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
     updateWindow(windowData.id, { visible: false, isMaximized: false });
   };
 
-  // Вычисляем стили окна
+  // Если окно максимизировано, оставляем место для панели задач (40px)
   const style = windowData.isMaximized
     ? {
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100vw',
-        height: '100vh',
+        height: 'calc(100vh - 38px)', // учитываем высоту таскбара
         zIndex: windowData.zIndex,
       }
     : {
@@ -89,7 +94,6 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
         top: windowData.position.top,
         left: windowData.position.left,
         width: windowData.size.width,
-        // Если высота задана числом, можно добавить 'px'
         height:
           typeof windowData.size.height === 'number'
             ? windowData.size.height + 'px'
@@ -105,11 +109,7 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
       onMouseDown={() => bringToFront(windowData.id)}
     >
       <div className="title-bar" onMouseDown={onMouseDown}>
-        <img
-          aria-label="windowicon"
-          src={windowData.icon}
-          alt="icon"
-        />
+        <img aria-label="windowicon" src={windowData.icon} alt="icon" />
         <div className="title-bar-text">{windowData.title}</div>
         <div className="title-bar-controls">
           <button aria-label="Minimize" onClick={handleMinimize}></button>
@@ -117,8 +117,19 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
           <button aria-label="Close" onClick={handleClose}></button>
         </div>
       </div>
-      {/* Содержимое окна */}
-      {children}
+      <div
+        className="window-body"
+        style={{
+          backgroundColor: '#fff', // белый фон для содержимого
+          width: '100%',
+          height: 'calc(100% - 30px)', // вычитаем высоту заголовка
+          overflow: 'auto',
+          border: 'none',
+          outline: 'none',
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

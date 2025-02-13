@@ -1,7 +1,7 @@
-// Taskbar.js
+// components/Taskbar.js
 import React, { useEffect, useRef, useState } from 'react';
 
-const Taskbar = ({ windows, toggleWindowVisibility, bringToFront }) => {
+const Taskbar = ({ windows, activeWindowId, toggleWindowVisibility, bringToFront }) => {
   const taskbarIconsRef = useRef(null);
   const [showStartMenu, setShowStartMenu] = useState(false);
 
@@ -11,7 +11,6 @@ const Taskbar = ({ windows, toggleWindowVisibility, bringToFront }) => {
       cards.forEach((card) => {
         const taskbarIcon = card.querySelector('.taskbaricon');
         if (taskbarIcon) {
-          // Создаем временный canvas для вычисления среднего цвета иконки
           const canvas = document.createElement('canvas');
           canvas.width = taskbarIcon.clientWidth;
           canvas.height = taskbarIcon.clientHeight;
@@ -19,9 +18,7 @@ const Taskbar = ({ windows, toggleWindowVisibility, bringToFront }) => {
           ctx.drawImage(taskbarIcon, 0, 0, canvas.width, canvas.height);
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
-          let totalR = 0,
-              totalG = 0,
-              totalB = 0;
+          let totalR = 0, totalG = 0, totalB = 0;
           for (let i = 0; i < imageData.length; i += 4) {
             totalR += imageData[i];
             totalG += imageData[i + 1];
@@ -32,18 +29,15 @@ const Taskbar = ({ windows, toggleWindowVisibility, bringToFront }) => {
           const averageG = Math.round(totalG / numPixels);
           const averageB = Math.round(totalB / numPixels);
 
-          // Увеличиваем яркость среднего цвета
           const brightnessMultiplier = 1.5;
           const brighterR = Math.min(255, averageR * brightnessMultiplier);
           const brighterG = Math.min(255, averageG * brightnessMultiplier);
           const brighterB = Math.min(255, averageB * brightnessMultiplier);
           const brighterColor = `rgb(${brighterR}, ${brighterG}, ${brighterB})`;
 
-          // Записываем вычисленный цвет в CSS-переменную
           card.style.setProperty('--img-colour', brighterColor);
         }
 
-        // Вычисляем позицию курсора внутри кнопки
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -66,7 +60,6 @@ const Taskbar = ({ windows, toggleWindowVisibility, bringToFront }) => {
 
   return (
     <div className="taskbar">
-      {/* Кнопка Start, переключающая отображение Start Menu */}
       <button
         className="startbutton"
         onClick={() => setShowStartMenu((prev) => !prev)}
@@ -76,7 +69,7 @@ const Taskbar = ({ windows, toggleWindowVisibility, bringToFront }) => {
         {windows.map((w) => (
           <button
             key={w.id}
-            className={`taskbarbutton ${w.visible ? 'taskbarfocused' : ''}`}
+            className={`taskbarbutton ${activeWindowId === w.id ? 'taskbarfocused' : ''}`}
             onClick={() => {
               toggleWindowVisibility(w.id);
               if (!w.visible) {
@@ -99,14 +92,12 @@ const Taskbar = ({ windows, toggleWindowVisibility, bringToFront }) => {
       <div
         className="aeropeek"
         onClick={() => {
-          // При клике по AeroPeek сворачиваем (скрываем) все окна
           windows.forEach((w) => {
             if (w.visible) toggleWindowVisibility(w.id);
           });
         }}
       ></div>
 
-      {/* Start Menu внутри Taskbar */}
       {showStartMenu && (
         <div className="start">
           <div className="startrightcontainer">

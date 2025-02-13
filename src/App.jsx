@@ -6,13 +6,12 @@ import Taskbar from './components/Taskbar';
 import './App.css';
 
 const App = () => {
-  // Изначальное состояние окон: два окна - Info и Links
   const initialWindows = [
     {
       id: 'info',
       title: 'Info',
       icon: 'resources/img/information.png',
-      visible: false,
+      visible: true, // Окно Info открыто по умолчанию
       isMaximized: false,
       position: { top: 10, left: 20 },
       size: { width: 300, height: 200 },
@@ -25,15 +24,16 @@ const App = () => {
       visible: false,
       isMaximized: false,
       position: { top: 10, left: 530 },
-      size: { width: 900, height: 'auto' },
+      size: { width: 900, height: 700 },
       zIndex: 1,
     },
   ];
 
   const [windows, setWindows] = useState(initialWindows);
   const [currentZ, setCurrentZ] = useState(1);
+  const [activeWindowId, setActiveWindowId] = useState(null);
 
-  // Функция поднимает окно на передний план (обновляет zIndex)
+  // Поднимает окно на передний план и сохраняет его ID как активное
   const bringToFront = (id) => {
     setWindows((prev) =>
       prev.map((w) => {
@@ -45,25 +45,23 @@ const App = () => {
         return w;
       })
     );
+    setActiveWindowId(id);
   };
 
-  // Обновление свойств окна по id
   const updateWindow = (id, newProps) => {
     setWindows((prev) =>
       prev.map((w) => (w.id === id ? { ...w, ...newProps } : w))
     );
   };
 
-  // Переключение видимости окна (используется и в панели задач)
+  // Переключает видимость окна и делает его активным
   const toggleWindowVisibility = (id) => {
     setWindows((prev) =>
-      prev.map((w) =>
-        w.id === id ? { ...w, visible: !w.visible } : w
-      )
+      prev.map((w) => (w.id === id ? { ...w, visible: !w.visible } : w))
     );
+    setActiveWindowId(id);
   };
 
-  // Открыть окно (по клику на иконку рабочего стола)
   const openWindow = (id) => {
     updateWindow(id, { visible: true });
     bringToFront(id);
@@ -71,10 +69,8 @@ const App = () => {
 
   return (
     <div className="desktop-container">
-      {/* Компонент Desktop с иконками */}
       <Desktop windows={windows} openWindow={openWindow} />
 
-      {/* Рендерим все окна, у которых visible === true */}
       {windows.map(
         (w) =>
           w.visible && (
@@ -84,17 +80,16 @@ const App = () => {
               bringToFront={bringToFront}
               updateWindow={updateWindow}
             >
-              {/* Здесь можно вставить содержимое окна */}
-              <div className="window-body">
+              <div className="window-content">
                 {w.title} content goes here.
               </div>
             </Window>
           )
       )}
 
-      {/* Компонент панели задач */}
       <Taskbar
         windows={windows}
+        activeWindowId={activeWindowId}
         toggleWindowVisibility={toggleWindowVisibility}
         bringToFront={bringToFront}
       />
