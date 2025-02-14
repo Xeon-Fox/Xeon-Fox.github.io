@@ -1,4 +1,5 @@
 // App.js
+import LinksContent from './components/WindowContents/LinksContent';
 import React, { useState } from 'react';
 import Desktop from './components/Desktop';
 import Window from './components/Window';
@@ -137,9 +138,13 @@ const App = () => {
               updateWindow={updateWindow}
               closeWindow={closeWindow}
             >
-              <div className="window-content">
-                {w.title} content goes here.
-              </div>
+              {w.id === 'links' ? (
+                <LinksContent />
+              ) : (
+                <div className="window-content">
+                  {w.title} content goes here.
+                </div>
+              )}
             </Window>
           )
       )}
