@@ -1,10 +1,39 @@
 // components/Taskbar.js
 import React, { useEffect, useRef, useState } from 'react';
 
-const Taskbar = ({ windows, activeWindowId, toggleWindowVisibility, bringToFront }) => {
+const Taskbar = ({
+  windows,
+  activeWindowId,
+  toggleWindowVisibility,
+  bringToFront,
+  hideAllWindows,
+}) => {
   const taskbarIconsRef = useRef(null);
   const [showStartMenu, setShowStartMenu] = useState(false);
 
+  // Состояние для времени (и даты)
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Обновляем время каждую секунду
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Форматируем время (12-часовой формат, часы:минуты)
+  const timeString = currentTime.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  // Форматируем дату (месяц/день/год)
+  const dateString = currentTime.toLocaleDateString([], {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  });
+
+  // Эффект для динамического градиента на иконках
   useEffect(() => {
     const handleMouseMove = (e) => {
       const cards = taskbarIconsRef.current.querySelectorAll('.taskbarbutton');
@@ -69,7 +98,9 @@ const Taskbar = ({ windows, activeWindowId, toggleWindowVisibility, bringToFront
         {windows.map((w) => (
           <button
             key={w.id}
-            className={`taskbarbutton ${activeWindowId === w.id ? 'taskbarfocused' : ''}`}
+            className={`taskbarbutton ${
+              activeWindowId === w.id ? 'taskbarfocused' : ''
+            }`}
             onClick={() => {
               toggleWindowVisibility(w.id);
               if (!w.visible) {
@@ -86,15 +117,33 @@ const Taskbar = ({ windows, activeWindowId, toggleWindowVisibility, bringToFront
           </button>
         ))}
       </div>
-      <div className="datetime">
-        {/* Здесь можно отобразить дату/время */}
+
+      <div
+        className="datetime"
+        style={{
+          position: 'absolute',
+          right: '40px',
+          top: 0,
+          width: '60px',
+          height: '40px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#fff',
+          fontSize: '12px',
+          lineHeight: '14px',
+          textAlign: 'center',
+        }}
+      >
+        <div>{timeString}</div>
+        <div>{dateString}</div>
       </div>
+
       <div
         className="aeropeek"
         onClick={() => {
-          windows.forEach((w) => {
-            if (w.visible) toggleWindowVisibility(w.id);
-          });
+          hideAllWindows();
         }}
       ></div>
 

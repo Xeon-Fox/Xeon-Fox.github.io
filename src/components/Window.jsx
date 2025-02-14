@@ -1,7 +1,7 @@
 // components/Window.js
 import React, { useRef, useEffect, useState } from 'react';
 
-const Window = ({ windowData, bringToFront, updateWindow, children }) => {
+const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children }) => {
   const windowRef = useRef(null);
   const [dragging, setDragging] = useState(false);
   const [relPos, setRelPos] = useState({ x: 0, y: 0 });
@@ -53,30 +53,19 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
 
   const handleMaximize = () => {
     if (windowData.isMaximized) {
-      // При выходе из максимизированного режима восстанавливаем предыдущее состояние
-      if (windowData.prevState) {
-        updateWindow(windowData.id, {
-          isMaximized: false,
-          position: windowData.prevState.position,
-          size: windowData.prevState.size,
-          prevState: undefined,
-        });
-      }
-    } else {
-      // Сохраняем текущее состояние перед максимизацией
+      // Восстанавливаем предыдущее состояние, если оно сохранено (если нужно можно добавить дополнительную логику)
       updateWindow(windowData.id, {
-        prevState: {
-          position: windowData.position,
-          size: windowData.size,
-        },
-        isMaximized: true,
+        isMaximized: false,
       });
+    } else {
+      // Сохранять предыдущее состояние можно, если потребуется (в данном примере мы не сохраняем)
+      updateWindow(windowData.id, { isMaximized: true });
     }
     bringToFront(windowData.id);
   };
 
   const handleClose = () => {
-    updateWindow(windowData.id, { visible: false, isMaximized: false });
+    closeWindow(windowData.id);
   };
 
   // Если окно максимизировано, оставляем место для панели задач (40px)
@@ -86,7 +75,7 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
         top: 0,
         left: 0,
         width: '100vw',
-        height: 'calc(100vh - 38px)', // учитываем высоту таскбара
+        height: 'calc(100vh - 40px)', // учитываем высоту таскбара
         zIndex: windowData.zIndex,
       }
     : {
@@ -122,7 +111,7 @@ const Window = ({ windowData, bringToFront, updateWindow, children }) => {
         style={{
           backgroundColor: '#fff', // белый фон для содержимого
           width: '100%',
-          height: 'calc(100% - 30px)', // вычитаем высоту заголовка
+          height: 'calc(100% - 30px)', // вычитаем высоту заголовка (30px)
           overflow: 'auto',
           border: 'none',
           outline: 'none',
