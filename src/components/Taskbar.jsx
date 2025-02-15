@@ -10,6 +10,7 @@ const Taskbar = ({
   openWindow, // обязательно прокидываем из App.js
 }) => {
   const taskbarIconsRef = useRef(null);
+  const startMenuRef = useRef(null);
   const [showStartMenu, setShowStartMenu] = useState(false);
 
   // ----------------------
@@ -90,7 +91,28 @@ const Taskbar = ({
   }, []);
 
   // ----------------------
-  // 3. Открытие/закрытие Start Menu
+  // 3. Закрытие Start Menu при клике вне его области
+  // ----------------------
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (startMenuRef.current && !startMenuRef.current.contains(e.target)) {
+        setShowStartMenu(false);
+      }
+    };
+
+    if (showStartMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showStartMenu]);
+
+  // ----------------------
+  // 4. Открытие/закрытие Start Menu через кнопку
   // ----------------------
   const handleStartMenuApp = (id) => {
     if (openWindow) {
@@ -167,7 +189,7 @@ const Taskbar = ({
 
       {/* Start Menu */}
       {showStartMenu && (
-        <div className="start">
+        <div ref={startMenuRef} className="start">
           <div className="startrightcontainer">
             {/* Ваш профиль */}
             <div className="profileicon startprofileimage">
@@ -189,7 +211,6 @@ const Taskbar = ({
                 className="StartMenuButton"
                 onClick={() => handleStartMenuApp('info')}
               >
-                {/* Небольшая иконка слева от текста */}
                 <img
                   src="resources/ico/help.ico"
                   alt="Info Icon"

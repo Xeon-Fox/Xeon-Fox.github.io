@@ -1,7 +1,8 @@
 // App.js
+import React, { useState } from 'react';
 import InfoContent from './components/WindowContents/InfoContent';
 import LinksContent from './components/WindowContents/LinksContent';
-import React, { useState } from 'react';
+import LoginOverlay from './components/LoginOverlay';
 import Desktop from './components/Desktop';
 import Window from './components/Window';
 import Taskbar from './components/Taskbar';
@@ -62,6 +63,7 @@ const App = () => {
   const [windows, setWindows] = useState(initialWindows);
   const [currentZ, setCurrentZ] = useState(1);
   const [activeWindowId, setActiveWindowId] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Поднимает окно на передний план и делает его активным
   const bringToFront = (id) => {
@@ -125,6 +127,9 @@ const App = () => {
 
   return (
     <div className="desktop-container">
+      {/* Показываем логин-оверлей, если не залогинились */}
+      {!loggedIn && <LoginOverlay onLogin={() => setLoggedIn(true)} />}
+
       <Desktop windows={windows} openWindow={openWindow} />
 
       {windows.map(
