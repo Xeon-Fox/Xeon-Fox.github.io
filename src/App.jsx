@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import InfoContent from './components/WindowContents/InfoContent';
 import LinksContent from './components/WindowContents/LinksContent';
+import ProjectsContent from './components/WindowContents/ProjectsContent';
 import LoginOverlay from './components/LoginOverlay';
 import Desktop from './components/Desktop';
 import Window from './components/Window';
@@ -42,8 +43,8 @@ const App = () => {
       isMaximized: false,
       position: { top: 50, left: 100 },
       defaultPosition: { top: 50, left: 100 },
-      size: { width: 600, height: 400 },
-      defaultSize: { width: 600, height: 400 },
+      size: { width: 600, height: 'auto' },
+      defaultSize: { width: 600, height: 'auto' },
       zIndex: 1,
     },
     {
@@ -146,7 +147,11 @@ const App = () => {
                 <LinksContent />
               ) : w.id === 'info' ? (
                 <InfoContent />
+              ) : w.id === 'projects' ? (
+                <ProjectsContent />
               ) : (
+              
+              
                 <div className="window-content">
                   {w.title} content goes here.
                 </div>

@@ -55,8 +55,9 @@ const InfoContent = () => {
           />
         </div>
         {/* Текстовая информация */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: "70px"}}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: "50px"}}>
           <h2 style={{ margin: '0 0 5px 0' }}>Semyon</h2>
+          <p style={{ margin: '0 0 5px 0' }}>he/him</p>
           <p style={{ margin: '0 0 5px 0' }}>16 years</p>
           <p style={{ margin: '0 0 15px 0' }}>Last time online: 08 apr. 2004</p>
         </div>
