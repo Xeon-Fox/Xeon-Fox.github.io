@@ -492,6 +492,21 @@ img[aria-label="windowicon"]{
   height: auto;
 }
 
+.start {
+  background: linear-gradient(0deg, #0000004e 0%, #2e4b5aa7 45%, #00000099 100%);
+  width: 411px;
+  height: 477px;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  backdrop-filter: blur(5px);
+  outline: solid 2px #00000050;
+  box-shadow: inset 0px 0px 0px 1px #ffffff50;
+  transition-duration: 0.1s;
+  z-index: 999999999; 
+}
+
 .aeropeek{
   width: 15px;
   height: 40px;

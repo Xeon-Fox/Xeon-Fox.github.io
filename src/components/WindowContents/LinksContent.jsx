@@ -198,7 +198,7 @@ const LinksContent = () => {
 
             <a
               target="_blank"
-              href="https://ru.pinterest.com/aerosness/"
+              href="https://pinterest.com/aerosness/"
             >
               <img
                 style={{ maxWidth: '50px', maxHeight: '50px' }}

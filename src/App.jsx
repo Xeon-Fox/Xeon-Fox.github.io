@@ -1,4 +1,5 @@
 // App.js
+import InfoContent from './components/WindowContents/InfoContent';
 import LinksContent from './components/WindowContents/LinksContent';
 import React, { useState } from 'react';
 import Desktop from './components/Desktop';
@@ -14,22 +15,22 @@ const App = () => {
       icon: 'resources/ico/help.ico', // изменённая иконка для окна Info
       visible: true, // окно Info открыто по умолчанию
       isMaximized: false,
-      position: { top: 10, left: 20 },
-      defaultPosition: { top: 10, left: 20 },
-      size: { width: 300, height: 200 },
-      defaultSize: { width: 300, height: 200 },
+      position: { top: 50, left: 630 },
+      defaultPosition: { top: 50, left: 630 },
+      size: { width: 700, height: 800 },
+      defaultSize: { width: 700, height: 800 },
       zIndex: 1,
     },
     {
-      id: 'links',
-      title: 'Links',
-      icon: 'resources/ico/folder.ico',
+      id: 'about',
+      title: 'About Me',
+      icon: 'resources/img/information.png',
       visible: false,
       isMaximized: false,
-      position: { top: 10, left: 530 },
-      defaultPosition: { top: 10, left: 530 },
-      size: { width: 900, height: 'auto' },
-      defaultSize: { width: 900, height: 'auto' },
+      position: { top: 70, left: 200 },
+      defaultPosition: { top: 70, left: 200 },
+      size: { width: 400, height: 300 },
+      defaultSize: { width: 400, height: 300 },
       zIndex: 1,
     },
     {
@@ -45,15 +46,15 @@ const App = () => {
       zIndex: 1,
     },
     {
-      id: 'about',
-      title: 'About Me',
-      icon: 'resources/img/information.png',
+      id: 'links',
+      title: 'Links',
+      icon: 'resources/ico/folder.ico',
       visible: false,
       isMaximized: false,
-      position: { top: 70, left: 200 },
-      defaultPosition: { top: 70, left: 200 },
-      size: { width: 400, height: 300 },
-      defaultSize: { width: 400, height: 300 },
+      position: { top: 10, left: 530 },
+      defaultPosition: { top: 10, left: 530 },
+      size: { width: 900, height: 'auto' },
+      defaultSize: { width: 900, height: 'auto' },
       zIndex: 1,
     },
   ];
@@ -62,7 +63,7 @@ const App = () => {
   const [currentZ, setCurrentZ] = useState(1);
   const [activeWindowId, setActiveWindowId] = useState(null);
 
-  // Поднимает окно на передний план и сохраняет его ID как активное
+  // Поднимает окно на передний план и делает его активным
   const bringToFront = (id) => {
     setWindows((prev) =>
       prev.map((w) => {
@@ -111,11 +112,9 @@ const App = () => {
     }
   };
 
-  // Функция, скрывающая все окна и очищающая активное окно (для AeroPeek)
+  // Функция, скрывающая все окна (для AeroPeek)
   const hideAllWindows = () => {
-    setWindows((prev) =>
-      prev.map((w) => ({ ...w, visible: false }))
-    );
+    setWindows((prev) => prev.map((w) => ({ ...w, visible: false })));
     setActiveWindowId(null);
   };
 
@@ -140,6 +139,8 @@ const App = () => {
             >
               {w.id === 'links' ? (
                 <LinksContent />
+              ) : w.id === 'info' ? (
+                <InfoContent />
               ) : (
                 <div className="window-content">
                   {w.title} content goes here.
@@ -155,6 +156,7 @@ const App = () => {
         toggleWindowVisibility={toggleWindowVisibility}
         bringToFront={bringToFront}
         hideAllWindows={hideAllWindows}
+        openWindow={openWindow}
       />
     </div>
   );

@@ -7,35 +7,37 @@ const Taskbar = ({
   toggleWindowVisibility,
   bringToFront,
   hideAllWindows,
+  openWindow, // обязательно прокидываем из App.js
 }) => {
   const taskbarIconsRef = useRef(null);
   const [showStartMenu, setShowStartMenu] = useState(false);
 
-  // Состояние для времени (и даты)
+  // ----------------------
+  // 1. Обновление времени и даты
+  // ----------------------
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Обновляем время каждую секунду
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Форматируем время (12-часовой формат, часы:минуты)
   const timeString = currentTime.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
   });
-
-  // Форматируем дату (месяц/день/год)
   const dateString = currentTime.toLocaleDateString([], {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
   });
 
-  // Эффект для динамического градиента на иконках
+  // ----------------------
+  // 2. Динамический градиент иконок при наведении
+  // ----------------------
   useEffect(() => {
     const handleMouseMove = (e) => {
+      if (!taskbarIconsRef.current) return;
       const cards = taskbarIconsRef.current.querySelectorAll('.taskbarbutton');
       cards.forEach((card) => {
         const taskbarIcon = card.querySelector('.taskbaricon');
@@ -87,13 +89,27 @@ const Taskbar = ({
     };
   }, []);
 
+  // ----------------------
+  // 3. Открытие/закрытие Start Menu
+  // ----------------------
+  const handleStartMenuApp = (id) => {
+    if (openWindow) {
+      openWindow(id);
+    }
+    setShowStartMenu(false); // закрываем меню Пуск
+  };
+
   return (
     <div className="taskbar">
+      {/* Кнопка Пуск */}
       <button
         className="startbutton"
         onClick={() => setShowStartMenu((prev) => !prev)}
       ></button>
+
       <div className="startorb"></div>
+
+      {/* Иконки открытых приложений в таскбаре */}
       <div className="taskbaricons" id="taskbaricons" ref={taskbarIconsRef}>
         {windows.map((w) => (
           <button
@@ -118,6 +134,7 @@ const Taskbar = ({
         ))}
       </div>
 
+      {/* Дата/время справа */}
       <div
         className="datetime"
         style={{
@@ -140,6 +157,7 @@ const Taskbar = ({
         <div>{dateString}</div>
       </div>
 
+      {/* AeroPeek */}
       <div
         className="aeropeek"
         onClick={() => {
@@ -147,9 +165,11 @@ const Taskbar = ({
         }}
       ></div>
 
+      {/* Start Menu */}
       {showStartMenu && (
         <div className="start">
           <div className="startrightcontainer">
+            {/* Ваш профиль */}
             <div className="profileicon startprofileimage">
               <img
                 src="resources/svg/avframe.svg"
@@ -162,14 +182,54 @@ const Taskbar = ({
                 alt="Profile"
               />
             </div>
+
+            {/* Кнопки приложений */}
             <div className="startmenuexplorebuttons">
-              <button className="StartMenuButton">Documents</button>
-              <button className="StartMenuButton">Pictures</button>
-              <button className="StartMenuButton">Music</button>
-              <button className="StartMenuButton">Computer</button>
-              <button className="StartMenuButton">Control Panel</button>
-              <button className="StartMenuButton">Default Programs</button>
-              <button className="StartMenuButton">Help and Support</button>
+              <button
+                className="StartMenuButton"
+                onClick={() => handleStartMenuApp('info')}
+              >
+                {/* Небольшая иконка слева от текста */}
+                <img
+                  src="resources/ico/help.ico"
+                  alt="Info Icon"
+                  style={{ marginRight: '5px', width: '20px', height: '20px' }}
+                />
+                Info
+              </button>
+              <button
+                className="StartMenuButton"
+                onClick={() => handleStartMenuApp('links')}
+              >
+                <img
+                  src="resources/ico/folder.ico"
+                  alt="Links Icon"
+                  style={{ marginRight: '5px', width: '20px', height: '20px' }}
+                />
+                Links
+              </button>
+              <button
+                className="StartMenuButton"
+                onClick={() => handleStartMenuApp('projects')}
+              >
+                <img
+                  src="resources/ico/projects.ico"
+                  alt="Projects Icon"
+                  style={{ marginRight: '5px', width: '20px', height: '20px' }}
+                />
+                Projects
+              </button>
+              <button
+                className="StartMenuButton"
+                onClick={() => handleStartMenuApp('about')}
+              >
+                <img
+                  src="resources/img/information.png"
+                  alt="About Icon"
+                  style={{ marginRight: '5px', width: '20px', height: '20px' }}
+                />
+                About Me
+              </button>
             </div>
           </div>
           <div className="startinner"></div>
