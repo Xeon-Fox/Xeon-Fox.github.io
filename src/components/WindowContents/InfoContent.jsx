@@ -1,4 +1,3 @@
-// src/components/WindowContents/InfoContent.js
 import React from 'react';
 
 const InfoContent = () => {
@@ -13,9 +12,7 @@ const InfoContent = () => {
         flexDirection: 'column',
       }}
     >
-      {/* Верхняя часть: аватарка с рамкой и текстовая информация */}
       <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-        {/* Контейнер для аватарки с голубой заливкой и рамкой */}
         <div
           style={{
             position: 'relative',
@@ -26,7 +23,6 @@ const InfoContent = () => {
             overflow: 'hidden',
           }}
         >
-          {/* Рамка как изображение */}
           <img
             src="resources/img/avframe.png"
             alt="Avatar Frame"
@@ -39,7 +35,6 @@ const InfoContent = () => {
               height: '100%',
             }}
           />
-          {/* Аватарка */}
           <img
             src="resources/img/pfp.jpg"
             alt="Profile"
@@ -54,7 +49,6 @@ const InfoContent = () => {
             }}
           />
         </div>
-        {/* Текстовая информация */}
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: "50px"}}>
           <h2 style={{ margin: '0 0 5px 0' }}>Semyon</h2>
           <p style={{ margin: '0 0 5px 0' }}>he/him</p>
@@ -63,7 +57,6 @@ const InfoContent = () => {
         </div>
       </div>
       
-      {/* Дополнительный информационный блок */}
       <div
         style={{
           backgroundColor: '#f0f0f0',
@@ -81,7 +74,7 @@ const InfoContent = () => {
         </p>
       </div>
       
-      {/* Рекламные блоки, выровненные по центру внизу */}
+      {/* TODO: надо чето подумать както насчет че можно вместо рекламы */}
       <div
         style={{
           position: 'absolute',

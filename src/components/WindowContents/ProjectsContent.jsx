@@ -1,12 +1,10 @@
-// src/components/WindowContents/ProjectsContent.jsx
 import React from 'react';
 
 const ProjectsContent = () => {
-  // Пример данных – можно заменить или расширить по необходимости
   const projects = [
     {
       title: 'Radeon Site Knockoff',
-      image: 'resources/img/project1.png', // путь к изображению проекта
+      image: 'resources/img/project1.png',
       description: 'Full-Stack Django app that is inspired by the AMD Radeon graphics card official website. ',
       github: 'https://github.com/aerosness/radeon-site-knockoff',
     },
@@ -37,7 +35,6 @@ const ProjectsContent = () => {
             marginBottom: '15px',
           }}
         >
-          {/* Верхняя строка: название и 16:9 картинка */}
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
             <h2 style={{ margin: 0, flex: 1, fontSize: '18px' }}>{project.title}</h2>
             <img
@@ -45,16 +42,16 @@ const ProjectsContent = () => {
               alt={project.title}
               style={{
                 width: '200px',
-                height: 'calc(200px * 9 / 16)', // соотношение 16:9
+                height: 'calc(200px * 9 / 16)', // чтобы 16:9 картинка была т.к я так скришотю
                 objectFit: 'cover',
                 marginLeft: '10px',
                 borderRadius: '4px',
               }}
             />
           </div>
-          {/* Описание */}
+
           <p style={{ margin: '0 0 5px 0' }}>{project.description}</p>
-          {/* Гиперссылка на GitHub */}
+          
           {project.github && (
             <a
               href={project.github}

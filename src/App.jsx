@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import InfoContent from './components/WindowContents/InfoContent';
 import LinksContent from './components/WindowContents/LinksContent';
@@ -14,8 +13,8 @@ const App = () => {
     {
       id: 'info',
       title: 'Info',
-      icon: 'resources/ico/help.ico', // изменённая иконка для окна Info
-      visible: true, // окно Info открыто по умолчанию
+      icon: 'resources/ico/help.ico',
+      visible: true,
       isMaximized: false,
       position: { top: 50, left: 630 },
       defaultPosition: { top: 50, left: 630 },
@@ -66,7 +65,7 @@ const App = () => {
   const [activeWindowId, setActiveWindowId] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // Поднимает окно на передний план и делает его активным
+  // дает zindex чтоб сверху было окно
   const bringToFront = (id) => {
     setWindows((prev) =>
       prev.map((w) => {
@@ -81,6 +80,7 @@ const App = () => {
     setActiveWindowId(id);
   };
 
+  // Обновляет параметры указанного окна
   const updateWindow = (id, newProps) => {
     setWindows((prev) =>
       prev.map((w) => (w.id === id ? { ...w, ...newProps } : w))
@@ -95,7 +95,7 @@ const App = () => {
     setActiveWindowId(id);
   };
 
-  // Функция закрытия окна: скрывает окно и сбрасывает его положение и размеры
+  // закрывает окно сбрасывает его положение к дефолтным значениям 
   const closeWindow = (id) => {
     setWindows((prev) =>
       prev.map((w) =>
@@ -115,7 +115,6 @@ const App = () => {
     }
   };
 
-  // Функция, скрывающая все окна (для AeroPeek)
   const hideAllWindows = () => {
     setWindows((prev) => prev.map((w) => ({ ...w, visible: false })));
     setActiveWindowId(null);
@@ -128,7 +127,6 @@ const App = () => {
 
   return (
     <div className="desktop-container">
-      {/* Показываем логин-оверлей, если не залогинились */}
       {!loggedIn && <LoginOverlay onLogin={() => setLoggedIn(true)} />}
 
       <Desktop windows={windows} openWindow={openWindow} />
@@ -150,8 +148,6 @@ const App = () => {
               ) : w.id === 'projects' ? (
                 <ProjectsContent />
               ) : (
-              
-              
                 <div className="window-content">
                   {w.title} content goes here.
                 </div>

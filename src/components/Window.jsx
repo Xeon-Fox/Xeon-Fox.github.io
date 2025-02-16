@@ -1,4 +1,3 @@
-// components/Window.js
 import React, { useRef, useEffect, useState } from 'react';
 
 const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children }) => {
@@ -6,7 +5,7 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
   const [dragging, setDragging] = useState(false);
   const [relPos, setRelPos] = useState({ x: 0, y: 0 });
 
-  // Начало перетаскивания (при клике по заголовку)
+  // начинание перетаскивания при зажатию заголовка
   const onMouseDown = (e) => {
     if (e.target.closest('.title-bar')) {
       const rect = windowRef.current.getBoundingClientRect();
@@ -19,7 +18,7 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
     }
   };
 
-  // Обработка движения мыши
+  // обработка движении мыши
   const onMouseMove = (e) => {
     if (!dragging || windowData.isMaximized) return;
     const newLeft = e.clientX - relPos.x;
@@ -27,7 +26,7 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
     updateWindow(windowData.id, { position: { top: newTop, left: newLeft } });
   };
 
-  // Завершение перетаскивания
+  // завершение перетаскивания
   const onMouseUp = () => {
     setDragging(false);
   };
@@ -46,19 +45,17 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
     };
   }, [dragging, relPos]);
 
-  // Обработчики кнопок окна
+  // обработчики кнопок окна
   const handleMinimize = () => {
     updateWindow(windowData.id, { visible: false });
   };
 
   const handleMaximize = () => {
     if (windowData.isMaximized) {
-      // Восстанавливаем предыдущее состояние, если оно сохранено (если нужно можно добавить дополнительную логику)
       updateWindow(windowData.id, {
         isMaximized: false,
       });
     } else {
-      // Сохранять предыдущее состояние можно, если потребуется (в данном примере мы не сохраняем)
       updateWindow(windowData.id, { isMaximized: true });
     }
     bringToFront(windowData.id);
@@ -68,14 +65,13 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
     closeWindow(windowData.id);
   };
 
-  // Если окно максимизировано, оставляем место для панели задач (40px)
   const style = windowData.isMaximized
     ? {
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100vw',
-        height: 'calc(100vh - 40px)', // учитываем высоту таскбара
+        height: 'calc(100vh - 40px)',
         zIndex: windowData.zIndex,
       }
     : {
@@ -109,9 +105,9 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
       <div
         className="window-body"
         style={{
-          backgroundColor: '#fff', // белый фон для содержимого
+          backgroundColor: '#fff',
           width: '100%',
-          height: 'calc(100% - 30px)', // вычитаем высоту заголовка (30px)
+          height: 'calc(100% - 30px)',
           overflow: 'auto',
           border: 'none',
           outline: 'none',

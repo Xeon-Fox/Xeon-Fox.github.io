@@ -1,4 +1,3 @@
-// components/Desktop.js
 import React from 'react';
 
 const Desktop = ({ windows, openWindow }) => {
@@ -9,8 +8,8 @@ const Desktop = ({ windows, openWindow }) => {
           key={w.id}
           className="desktopicon"
           style={{
-            width: '90px',    // фиксированная ширина
-            height: '75px',    // фиксированная высота
+            width: '90px', 
+            height: '75px',
             marginBottom: '10px',
             cursor: 'pointer',
             position: 'relative',

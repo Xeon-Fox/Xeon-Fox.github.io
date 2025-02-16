@@ -1,4 +1,3 @@
-// src/components/LoginOverlay.js
 import React from 'react';
 
 const LoginOverlay = ({ onLogin }) => {

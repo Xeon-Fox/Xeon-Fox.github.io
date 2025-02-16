@@ -1,4 +1,3 @@
-// components/Taskbar.js
 import React, { useEffect, useRef, useState } from 'react';
 
 const Taskbar = ({
@@ -7,22 +6,19 @@ const Taskbar = ({
   toggleWindowVisibility,
   bringToFront,
   hideAllWindows,
-  openWindow, // обязательно прокидываем из App.js
+  openWindow,
 }) => {
   const taskbarIconsRef = useRef(null);
   const startMenuRef = useRef(null);
   const [showStartMenu, setShowStartMenu] = useState(false);
 
-  // ----------------------
-  // 1. Обновление времени и даты
-  // ----------------------
+  // логика даты и времени боже храни джаваскрипт
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
-
   const timeString = currentTime.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
@@ -33,56 +29,70 @@ const Taskbar = ({
     day: 'numeric',
   });
 
-  // ----------------------
-  // 2. Динамический градиент иконок при наведении
-  // ----------------------
+  // градиентик иконок при наведении очень сложно и очень необезательно но я в инете увидел прикольно
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (!taskbarIconsRef.current) return;
-      const cards = taskbarIconsRef.current.querySelectorAll('.taskbarbutton');
-      cards.forEach((card) => {
-        const taskbarIcon = card.querySelector('.taskbaricon');
-        if (taskbarIcon) {
-          const canvas = document.createElement('canvas');
-          canvas.width = taskbarIcon.clientWidth;
-          canvas.height = taskbarIcon.clientHeight;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(taskbarIcon, 0, 0, canvas.width, canvas.height);
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        if (!taskbarIconsRef.current) return;
 
-          let totalR = 0, totalG = 0, totalB = 0;
-          for (let i = 0; i < imageData.length; i += 4) {
-            totalR += imageData[i];
-            totalG += imageData[i + 1];
-            totalB += imageData[i + 2];
-          }
-          const numPixels = imageData.length / 4;
-          const averageR = Math.round(totalR / numPixels);
-          const averageG = Math.round(totalG / numPixels);
-          const averageB = Math.round(totalB / numPixels);
+        // чекаем иконки
+        const cards = taskbarIconsRef.current.querySelectorAll('.taskbarbutton');
 
-          const brightnessMultiplier = 1.5;
-          const brighterR = Math.min(255, averageR * brightnessMultiplier);
-          const brighterG = Math.min(255, averageG * brightnessMultiplier);
-          const brighterB = Math.min(255, averageB * brightnessMultiplier);
-          const brighterColor = `rgb(${brighterR}, ${brighterG}, ${brighterB})`;
+        cards.forEach((card) => {
+            // Получаем иконку внутри кнопки
+            const taskbarIcon = card.querySelector('.taskbaricon');
+            if (taskbarIcon) {
+                // создаём временный canvas для обработки изображения
+                const canvas = document.createElement('canvas');
+                canvas.width = taskbarIcon.clientWidth;
+                canvas.height = taskbarIcon.clientHeight;
+                const ctx = canvas.getContext('2d');
 
-          card.style.setProperty('--img-colour', brighterColor);
-        }
+                // рисуем изображение иконки на canvas
+                ctx.drawImage(taskbarIcon, 0, 0, canvas.width, canvas.height);
+                // чекаем пиксельные данные изображения
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-      });
+                // ыычисляем средний цвет изображения
+                let totalR = 0, totalG = 0, totalB = 0;
+                for (let i = 0; i < imageData.length; i += 4) {
+                    totalR += imageData[i];     // red
+                    totalG += imageData[i + 1]; // green
+                    totalB += imageData[i + 2]; // blue
+                }
+
+                // колво пикселей (каждый пиксель имеет 4 значения: R, G, B, A)
+                const numPixels = imageData.length / 4;
+                // рассчитываем средние значения цветов
+                const averageR = Math.round(totalR / numPixels);
+                const averageG = Math.round(totalG / numPixels);
+                const averageB = Math.round(totalB / numPixels);
+                // увеличиваем яркость изображения
+                const brightnessMultiplier = 1.5;
+                const brighterR = Math.min(255, averageR * brightnessMultiplier);
+                const brighterG = Math.min(255, averageG * brightnessMultiplier);
+                const brighterB = Math.min(255, averageB * brightnessMultiplier);
+
+                // формируем строку с цветом в формате RGB
+                const brighterColor = `rgb(${brighterR}, ${brighterG}, ${brighterB})`;
+
+                // устанавливаем этот цвет в css
+                card.style.setProperty('--img-colour', brighterColor);
+            }
+            // получаем координаты кнопки на экране
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; // курсор по иксу относительно кнопки
+            const y = e.clientY - rect.top;  // курсор по y относительно кнопки
+
+            // устанавливаем css переменные используемые для анимации или эффекта
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
     };
 
     const taskbarIcons = taskbarIconsRef.current;
     if (taskbarIcons) {
       taskbarIcons.addEventListener('mousemove', handleMouseMove);
     }
-
     return () => {
       if (taskbarIcons) {
         taskbarIcons.removeEventListener('mousemove', handleMouseMove);
@@ -90,9 +100,7 @@ const Taskbar = ({
     };
   }, []);
 
-  // ----------------------
-  // 3. Закрытие Start Menu при клике вне его области
-  // ----------------------
+  // если кликаешь вне стартменю пока он окрыт он скрываеться TODO: если нажимать на иконку виндовс то он открываеться обратно надо фиксить
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (startMenuRef.current && !startMenuRef.current.contains(e.target)) {
@@ -111,27 +119,23 @@ const Taskbar = ({
     };
   }, [showStartMenu]);
 
-  // ----------------------
-  // 4. Открытие/закрытие Start Menu через кнопку
-  // ----------------------
+  //  открытие/закрытие startmenu через кнопку
   const handleStartMenuApp = (id) => {
     if (openWindow) {
       openWindow(id);
     }
-    setShowStartMenu(false); // закрываем меню Пуск
+    setShowStartMenu(false);
   };
 
   return (
     <div className="taskbar">
-      {/* Кнопка Пуск */}
+      {/* кнопка пуск */}
       <button
         className="startbutton"
         onClick={() => setShowStartMenu((prev) => !prev)}
       ></button>
-
       <div className="startorb"></div>
-
-      {/* Иконки открытых приложений в таскбаре */}
+      {/* иконки */}
       <div className="taskbaricons" id="taskbaricons" ref={taskbarIconsRef}>
         {windows.map((w) => (
           <button
@@ -145,7 +149,7 @@ const Taskbar = ({
                 bringToFront(w.id);
               }
             }}
-          >
+           >
             <img
               className="taskbaricon"
               draggable="false"
@@ -156,7 +160,7 @@ const Taskbar = ({
         ))}
       </div>
 
-      {/* Дата/время справа */}
+      {/* дата/время */}
       <div
         className="datetime"
         style={{
@@ -179,7 +183,7 @@ const Taskbar = ({
         <div>{dateString}</div>
       </div>
 
-      {/* AeroPeek */}
+      {/* aeropeek */}
       <div
         className="aeropeek"
         onClick={() => {
@@ -187,11 +191,10 @@ const Taskbar = ({
         }}
       ></div>
 
-      {/* Start Menu */}
+      {/* виндовс меню */}
       {showStartMenu && (
         <div ref={startMenuRef} className="start">
           <div className="startrightcontainer">
-            {/* Ваш профиль */}
             <div className="profileicon startprofileimage">
               <img
                 src="resources/svg/avframe.svg"
@@ -205,7 +208,7 @@ const Taskbar = ({
               />
             </div>
 
-            {/* Кнопки приложений */}
+            {/* кнопки приложений */}
             <div className="startmenuexplorebuttons">
               <button
                 className="StartMenuButton"

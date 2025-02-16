@@ -1,4 +1,3 @@
-// src/components/WindowContents/LinksContent.js
 import React from 'react';
 
 const LinksContent = () => {
@@ -10,7 +9,7 @@ const LinksContent = () => {
         flexDirection: 'column',
       }}
     >
-      {/* Toolbar */}
+      {/* строка сверху */}
       <div
         className="toolbar"
         style={{
@@ -33,7 +32,6 @@ const LinksContent = () => {
         </div>
       </div>
 
-      {/* Content */}
       <div
         className="content"
         style={{
@@ -42,7 +40,7 @@ const LinksContent = () => {
           backgroundColor: '#ffffff',
         }}
       >
-        {/* Sidebar */}
+        {/* sidebar TODO: сделать больше похоже на реальный там иконки иерархию добавить */}
         <ul
           className="sidebar"
           style={{
@@ -87,14 +85,12 @@ const LinksContent = () => {
           <li style={{ padding: '5px' }}>Network</li>
         </ul>
 
-        {/* Main Content */}
         <div
           className="main-content"
           style={{ marginLeft: '210px' }}
         >
           <p style={{ fontSize: '14px', color: '#555' }}>8 items</p>
 
-          {/* Первая строка ссылок */}
           <div
             style={{
               marginTop: '10px',
@@ -236,7 +232,7 @@ const LinksContent = () => {
             </a>
           </div>
 
-          {/* Вторая строка ссылок */}
+          {/* вторая строка ссылок TODO: поидеи надо флексбоксом както сделать ато когда на весь экран открываешь остаеться как было  */}
           <div
             style={{
               marginTop: '50px',

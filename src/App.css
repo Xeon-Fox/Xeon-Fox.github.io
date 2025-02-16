@@ -1,3 +1,4 @@
+
 body{
     overflow: hidden;
     margin: 0;
@@ -672,7 +673,7 @@ transform: translateX(50%) translateY(-50px) scale(0.7);
     opacity: 1;
   }
 
-
+/* ОВЕРЛЕЙ ПРИ ЗАХОДЕ */
   .login-overlay {
     position: fixed;
     top: 0;
