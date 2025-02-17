@@ -125,6 +125,15 @@ const App = () => {
     bringToFront(id);
   };
 
+  const minimizeWindow = (id) => {
+    setWindows((prev) =>
+      prev.map((w) => (w.id === id ? { ...w, visible: false } : w))
+    );
+    if (activeWindowId === id) {
+      setActiveWindowId(null);
+    }
+  };
+
   return (
     <div className="desktop-container">
       {!loggedIn && <LoginOverlay onLogin={() => setLoggedIn(true)} />}
@@ -163,6 +172,7 @@ const App = () => {
         bringToFront={bringToFront}
         hideAllWindows={hideAllWindows}
         openWindow={openWindow}
+        minimizeWindow={minimizeWindow}
       />
     </div>
   );

@@ -70,7 +70,7 @@ const InfoContent = () => {
       >
         <p style={{ margin: 0, textAlign: 'center' }}>
           Hi! This site is my portfolio/website styled like Windows 7.
-          I'm an aspiring web developer with a passion for creating innovative and impactful applications. I enjoy exploring new technologies and staying up to date with the latest advancements in web development.❤️
+          I'm an aspiring web developer with a passion for creating innovative and impactful applications❤️
         </p>
       </div>
       

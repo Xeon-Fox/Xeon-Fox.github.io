@@ -7,6 +7,7 @@ const Taskbar = ({
   bringToFront,
   hideAllWindows,
   openWindow,
+  minimizeWindow, // функция минимизации окна (устанавливает visible: false)
 }) => {
   const taskbarIconsRef = useRef(null);
   const startMenuRef = useRef(null);
@@ -32,61 +33,61 @@ const Taskbar = ({
   // градиентик иконок при наведении очень сложно и очень необезательно но я в инете увидел прикольно
   useEffect(() => {
     const handleMouseMove = (e) => {
-        if (!taskbarIconsRef.current) return;
+      if (!taskbarIconsRef.current) return;
 
-        // чекаем иконки
-        const cards = taskbarIconsRef.current.querySelectorAll('.taskbarbutton');
+      // чекаем иконки
+      const cards = taskbarIconsRef.current.querySelectorAll('.taskbarbutton');
 
-        cards.forEach((card) => {
-            // Получаем иконку внутри кнопки
-            const taskbarIcon = card.querySelector('.taskbaricon');
-            if (taskbarIcon) {
-                // создаём временный canvas для обработки изображения
-                const canvas = document.createElement('canvas');
-                canvas.width = taskbarIcon.clientWidth;
-                canvas.height = taskbarIcon.clientHeight;
-                const ctx = canvas.getContext('2d');
+      cards.forEach((card) => {
+        // Получаем иконку внутри кнопки
+        const taskbarIcon = card.querySelector('.taskbaricon');
+        if (taskbarIcon) {
+          // создаём временный canvas для обработки изображения
+          const canvas = document.createElement('canvas');
+          canvas.width = taskbarIcon.clientWidth;
+          canvas.height = taskbarIcon.clientHeight;
+          const ctx = canvas.getContext('2d');
 
-                // рисуем изображение иконки на canvas
-                ctx.drawImage(taskbarIcon, 0, 0, canvas.width, canvas.height);
-                // чекаем пиксельные данные изображения
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+          // рисуем изображение иконки на canvas
+          ctx.drawImage(taskbarIcon, 0, 0, canvas.width, canvas.height);
+          // чекаем пиксельные данные изображения
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
-                // ыычисляем средний цвет изображения
-                let totalR = 0, totalG = 0, totalB = 0;
-                for (let i = 0; i < imageData.length; i += 4) {
-                    totalR += imageData[i];     // red
-                    totalG += imageData[i + 1]; // green
-                    totalB += imageData[i + 2]; // blue
-                }
+          // ыычисляем средний цвет изображения
+          let totalR = 0, totalG = 0, totalB = 0;
+          for (let i = 0; i < imageData.length; i += 4) {
+            totalR += imageData[i];     // red
+            totalG += imageData[i + 1]; // green
+            totalB += imageData[i + 2]; // blue
+          }
 
-                // колво пикселей (каждый пиксель имеет 4 значения: R, G, B, A)
-                const numPixels = imageData.length / 4;
-                // рассчитываем средние значения цветов
-                const averageR = Math.round(totalR / numPixels);
-                const averageG = Math.round(totalG / numPixels);
-                const averageB = Math.round(totalB / numPixels);
-                // увеличиваем яркость изображения
-                const brightnessMultiplier = 1.5;
-                const brighterR = Math.min(255, averageR * brightnessMultiplier);
-                const brighterG = Math.min(255, averageG * brightnessMultiplier);
-                const brighterB = Math.min(255, averageB * brightnessMultiplier);
+          // колво пикселей (каждый пиксель имеет 4 значения: R, G, B, A)
+          const numPixels = imageData.length / 4;
+          // рассчитываем средние значения цветов
+          const averageR = Math.round(totalR / numPixels);
+          const averageG = Math.round(totalG / numPixels);
+          const averageB = Math.round(totalB / numPixels);
+          // увеличиваем яркость изображения
+          const brightnessMultiplier = 1.5;
+          const brighterR = Math.min(255, averageR * brightnessMultiplier);
+          const brighterG = Math.min(255, averageG * brightnessMultiplier);
+          const brighterB = Math.min(255, averageB * brightnessMultiplier);
 
-                // формируем строку с цветом в формате RGB
-                const brighterColor = `rgb(${brighterR}, ${brighterG}, ${brighterB})`;
+          // формируем строку с цветом в формате RGB
+          const brighterColor = `rgb(${brighterR}, ${brighterG}, ${brighterB})`;
 
-                // устанавливаем этот цвет в css
-                card.style.setProperty('--img-colour', brighterColor);
-            }
-            // получаем координаты кнопки на экране
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // курсор по иксу относительно кнопки
-            const y = e.clientY - rect.top;  // курсор по y относительно кнопки
+          // устанавливаем этот цвет в css
+          card.style.setProperty('--img-colour', brighterColor);
+        }
+        // получаем координаты кнопки на экране
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left; // курсор по иксу относительно кнопки
+        const y = e.clientY - rect.top;  // курсор по y относительно кнопки
 
-            // устанавливаем css переменные используемые для анимации или эффекта
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
+        // устанавливаем css переменные используемые для анимации или эффекта
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
     };
 
     const taskbarIcons = taskbarIconsRef.current;
@@ -100,7 +101,7 @@ const Taskbar = ({
     };
   }, []);
 
-  // если кликаешь вне стартменю пока он окрыт он скрываеться TODO: если нажимать на иконку виндовс то он открываеться обратно надо фиксить
+  // если кликаешь вне стартменю пока он окрыт он скрываеться
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (startMenuRef.current && !startMenuRef.current.contains(e.target)) {
@@ -119,7 +120,7 @@ const Taskbar = ({
     };
   }, [showStartMenu]);
 
-  //  открытие/закрытие startmenu через кнопку
+  // открытие/закрытие startmenu через кнопку
   const handleStartMenuApp = (id) => {
     if (openWindow) {
       openWindow(id);
@@ -144,12 +145,17 @@ const Taskbar = ({
               activeWindowId === w.id ? 'taskbarfocused' : ''
             }`}
             onClick={() => {
-              toggleWindowVisibility(w.id);
-              if (!w.visible) {
-                bringToFront(w.id);
+              if (w.visible) {
+                if (activeWindowId === w.id) {
+                  minimizeWindow(w.id);
+                } else {
+                  bringToFront(w.id);
+                }
+              } else {
+                openWindow(w.id);
               }
             }}
-           >
+          >
             <img
               className="taskbaricon"
               draggable="false"
