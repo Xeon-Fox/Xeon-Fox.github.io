@@ -353,7 +353,7 @@ img[aria-label="windowicon"]{
     box-shadow:0 0 0 1px #ffffff50,
                0 0 0 2px #00000050;
     display: flex;
-    z-index: 99;
+    z-index: 999;
 }
 
 .startorb{
