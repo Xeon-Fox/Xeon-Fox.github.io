@@ -53,7 +53,7 @@ const InfoContent = () => {
           <h2 style={{ margin: '0 0 5px 0' }}>Semyon</h2>
           <p style={{ margin: '0 0 5px 0' }}>he/him</p>
           <p style={{ margin: '0 0 5px 0' }}>16 years</p>
-          <p style={{ margin: '0 0 15px 0' }}>Last time online: 08 apr. 2004</p>
+          <p style={{ margin: '0 0 15px 0' }}>{/*здесь чето о локации*/}</p>
         </div>
       </div>
       
@@ -68,13 +68,13 @@ const InfoContent = () => {
           width: '100%',
         }}
       >
-        <p style={{ margin: 0, textAlign: 'center' }}>
+        <p style={{ margin: 0, textAlign: 'center' }}> {/*Тотально переписать и переделать*/}
           Hi! This site is my portfolio/website styled like Windows 7.
-          I'm an aspiring web developer with a passion for creating innovative and impactful applications❤️
+          I'm a web developer with a passion for creating innovative and impactful applications❤️
         </p>
       </div>
       
-      {/* TODO: надо чето подумать както насчет че можно вместо рекламы */}
+      {/* TODO: надо чето подумать както насчет че можно вместо рекламы или удалить*/}
       <div
         style={{
           position: 'absolute',

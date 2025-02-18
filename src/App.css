@@ -693,7 +693,6 @@ transform: translateX(50%) translateY(-50px) scale(0.7);
   .about-content {
     color: black;
     font-size: 16px;
-    padding: 20px;
     max-width: 700px;
   }
   
@@ -707,8 +706,7 @@ transform: translateX(50%) translateY(-50px) scale(0.7);
   }
   
   ul {
-    list-style-type: "→ ";
-    padding-left: 20px;
+    list-style-type: "";
   }
   
   .badges {
@@ -722,3 +720,35 @@ transform: translateX(50%) translateY(-50px) scale(0.7);
     height: 30px;
   }
   
+  .about-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .content-wrapper {
+    text-align: center;
+    max-width: 600px;
+    border-radius: 10px;
+    color: black;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px 0;
+  }
+  
+  .badges img {
+    height: 30px;
+  }
