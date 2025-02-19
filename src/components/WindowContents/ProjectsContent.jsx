@@ -20,21 +20,44 @@ const ProjectsContent = () => {
       description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
       github: 'https://github.com/aerosness/weather-app',
     },
+    
   ];
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ 
+      padding: '20px', 
+      backgroundImage: 'url(resources/img/projectsbg.png)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}>
       <h1 style={{ marginBottom: '20px' }}>My Projects</h1>
       {projects.map((project, index) => (
         <div
-          key={index}
+        key={index}
+        style={{
+          position: 'relative',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+          padding: '10px',
+          marginBottom: '15px',
+          overflow: 'hidden', // чтобы фон не выходил за границы
+        }}
+      >
+        <div
           style={{
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            padding: '10px',
-            marginBottom: '15px',
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            backdropFilter: 'blur(5px)',
+            zIndex: 0,
           }}
-        >
+        ></div>
+      
+        <div style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
             <h2 style={{ margin: 0, flex: 1, fontSize: '18px' }}>{project.title}</h2>
             <img
@@ -42,16 +65,14 @@ const ProjectsContent = () => {
               alt={project.title}
               style={{
                 width: '200px',
-                height: 'calc(200px * 9 / 16)', // чтобы 16:9 картинка была т.к я так скришотю
+                height: 'calc(200px * 9 / 16)', // 16:9
                 objectFit: 'cover',
                 marginLeft: '10px',
                 borderRadius: '4px',
               }}
             />
           </div>
-
           <p style={{ margin: '0 0 5px 0' }}>{project.description}</p>
-          
           {project.github && (
             <a
               href={project.github}
@@ -63,6 +84,7 @@ const ProjectsContent = () => {
             </a>
           )}
         </div>
+      </div>
       ))}
     </div>
   );

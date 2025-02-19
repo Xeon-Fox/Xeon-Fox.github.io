@@ -10,6 +10,9 @@ const InfoContent = () => {
         padding: '20px',
         display: 'flex',
         flexDirection: 'column',
+        backgroundImage: 'url(resources/img/helpbg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'flex-start' }}>
@@ -24,7 +27,7 @@ const InfoContent = () => {
           }}
         >
           <img
-            src="resources/img/avframe.png"
+            src="resources/svg/avframe.svg"
             alt="Avatar Frame"
             style={{
               position: 'absolute',
@@ -45,7 +48,7 @@ const InfoContent = () => {
               width: '190px',
               height: '190px',
               objectFit: 'cover',
-              borderRadius: '10%',
+              borderRadius: '5%',
             }}
           />
         </div>
@@ -59,7 +62,7 @@ const InfoContent = () => {
       
       <div
         style={{
-          backgroundColor: '#f0f0f0',
+          backgroundColor: 'white',
           padding: '10px',
           borderRadius: '4px',
           marginTop: '20px',
@@ -68,7 +71,7 @@ const InfoContent = () => {
           width: '100%',
         }}
       >
-        <p style={{ margin: 0, textAlign: 'center' }}> {/*Тотально переписать и переделать*/}
+        <p style={{ margin: 0, textAlign: 'center', opacity: "100%"}}> {/*Тотально переписать и переделать*/}
           Hi! This site is my portfolio/website styled like Windows 7.
           I'm a web developer with a passion for creating innovative and impactful applications❤️
         </p>
