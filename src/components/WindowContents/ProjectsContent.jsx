@@ -20,7 +20,36 @@ const ProjectsContent = () => {
       description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
       github: 'https://github.com/aerosness/weather-app',
     },
-    
+    {
+      title: 'Weather App',
+      image: 'resources/img/project3.png',
+      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
+      github: 'https://github.com/aerosness/weather-app',
+    },
+    {
+      title: 'Weather App',
+      image: 'resources/img/project3.png',
+      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
+      github: 'https://github.com/aerosness/weather-app',
+    },
+    {
+      title: 'Weather App',
+      image: 'resources/img/project3.png',
+      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
+      github: 'https://github.com/aerosness/weather-app',
+    },
+    {
+      title: 'Weather App',
+      image: 'resources/img/project3.png',
+      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
+      github: 'https://github.com/aerosness/weather-app',
+    },
+    {
+      title: 'Weather App',
+      image: 'resources/img/project3.png',
+      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
+      github: 'https://github.com/aerosness/weather-app',
+    },
   ];
 
   return (

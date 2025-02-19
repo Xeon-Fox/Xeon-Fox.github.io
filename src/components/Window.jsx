@@ -31,17 +31,50 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
     setDragging(false);
   };
 
+  // --- Добавлено: обработка касаний для мобильных устройств ---
+  const onTouchStart = (e) => {
+    if (e.target.closest('.title-bar')) {
+      const touch = e.touches[0];
+      const rect = windowRef.current.getBoundingClientRect();
+      setRelPos({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      });
+      setDragging(true);
+      bringToFront(windowData.id);
+    }
+  };
+
+  const onTouchMove = (e) => {
+    if (!dragging || windowData.isMaximized) return;
+    const touch = e.touches[0];
+    const newLeft = touch.clientX - relPos.x;
+    const newTop = touch.clientY - relPos.y;
+    updateWindow(windowData.id, { position: { top: newTop, left: newLeft } });
+  };
+
+  const onTouchEnd = () => {
+    setDragging(false);
+  };
+  // --- Конец добавления касания ---
+
   useEffect(() => {
     if (dragging) {
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
+      document.addEventListener('touchmove', onTouchMove);
+      document.addEventListener('touchend', onTouchEnd);
     } else {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
     }
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
     };
   }, [dragging, relPos]);
 
@@ -93,7 +126,7 @@ const Window = ({ windowData, bringToFront, updateWindow, closeWindow, children 
       style={style}
       onMouseDown={() => bringToFront(windowData.id)}
     >
-      <div className="title-bar" onMouseDown={onMouseDown}>
+      <div className="title-bar" onMouseDown={onMouseDown} onTouchStart={onTouchStart}>
         <img aria-label="windowicon" src={windowData.icon} alt="icon" />
         <div className="title-bar-text">{windowData.title}</div>
         <div className="title-bar-controls">

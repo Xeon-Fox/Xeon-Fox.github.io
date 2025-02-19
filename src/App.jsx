@@ -43,8 +43,8 @@ const App = () => {
       isMaximized: false,
       position: { top: 50, left: 100 },
       defaultPosition: { top: 50, left: 100 },
-      size: { width: 600, height: 'auto' },
-      defaultSize: { width: 600, height: 'auto' },
+      size: { width: 600, height: 805 },
+      defaultSize: { width: 600, height: 805 },
       zIndex: 1,
     },
     {
