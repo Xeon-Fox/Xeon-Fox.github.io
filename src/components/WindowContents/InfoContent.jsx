@@ -73,7 +73,7 @@ const InfoContent = () => {
       >
         <p style={{ margin: 0, textAlign: 'center', opacity: "100%"}}> {/*Тотально переписать и переделать*/}
           Hi! This site is my portfolio/website styled like Windows 7.
-          I'm a web developer with a passion for creating innovative and impactful applications❤️
+          I'm mostly a web developer with a passion for creating innovative and impactful applications❤️
         </p>
       </div>
       

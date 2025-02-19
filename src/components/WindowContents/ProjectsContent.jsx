@@ -21,35 +21,30 @@ const ProjectsContent = () => {
       github: 'https://github.com/aerosness/weather-app',
     },
     {
-      title: 'Weather App',
-      image: 'resources/img/project3.png',
-      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
-      github: 'https://github.com/aerosness/weather-app',
+      title: 'AIESEC Web App',
+      image: 'resources/img/project4.png',
+      description: 'Frontend app for an internetional non-profit organization that was made under 2-day Synapse Creathon',
+      github: 'https://github.com/blxitze/ayan1232008.github.io',
     },
     {
-      title: 'Weather App',
-      image: 'resources/img/project3.png',
-      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
-      github: 'https://github.com/aerosness/weather-app',
+      title: 'Image To Text Converter',
+      image: 'resources/img/project7.png',
+      description: 'Full Stack Web App build on HTML and Flask using easyocr python library',
+      github: 'https://github.com/aerosness/Hackathon-2024',
     },
     {
-      title: 'Weather App',
-      image: 'resources/img/project3.png',
-      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
-      github: 'https://github.com/aerosness/weather-app',
+      title: 'Echoes Of The Past',
+      image: 'resources/img/project5.png',
+      description: 'A Unity game heavily inspired by nomadic culture, created during the Nomad Game Jam',
+      github: 'https://github.com/aerosness/Nomad-Game-Jam',
     },
     {
-      title: 'Weather App',
-      image: 'resources/img/project3.png',
-      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
-      github: 'https://github.com/aerosness/weather-app',
+      title: 'AI Car Game',
+      image: 'resources/img/project6.png',
+      description: 'Unity demo showcasing an AI car script that I developed as part of a team during the 3-day Decentrathon 2024',
+      github: 'https://github.com/aerosness/Decentrathon-2.0',
     },
-    {
-      title: 'Weather App',
-      image: 'resources/img/project3.png',
-      description: 'Mini React application with you can check the weather right now using OpenWeatherAPI, again with windows 7 aesthetic',
-      github: 'https://github.com/aerosness/weather-app',
-    },
+
   ];
 
   return (
