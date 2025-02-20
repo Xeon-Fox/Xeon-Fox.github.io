@@ -52,11 +52,41 @@ const InfoContent = () => {
             }}
           />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: "50px"}}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '35px' }}>
           <h2 style={{ margin: '0 0 5px 0' }}>Semyon</h2>
           <p style={{ margin: '0 0 5px 0' }}>he/him</p>
           <p style={{ margin: '0 0 5px 0' }}>16 years</p>
-          <p style={{ margin: '0 0 15px 0' }}>{/*здесь чето о локации*/}</p>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+            <img
+              src="resources/img/pin.png"
+              alt="Location"
+              style={{ width: '16px', height: '16px', marginRight: '5px' }}
+            />
+            <span>Almaty, Kazakhstan</span>
+          </div>
+          <div style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
+            <a href="https://github.com/aerosness" target="_blank" rel="noopener noreferrer">
+              <img
+                src="resources/img/githublogo.png"
+                alt="GitHub"
+                style={{ width: '24px', height: '24px' }}
+              />
+            </a>
+            <a href="mailto:aerosness@gmail.com">
+              <img
+                src="resources/img/mail.png"
+                alt="Mail"
+                style={{ width: '24px', height: '24px' }}
+              />
+            </a>
+            <a href="https://t.me/aerosness" target="_blank" rel="noopener noreferrer">
+              <img
+                src="resources/img/tg.png"
+                alt="Telegram"
+                style={{ width: '24px', height: '24px' }}
+              />
+            </a>
+          </div>
         </div>
       </div>
       
@@ -71,7 +101,8 @@ const InfoContent = () => {
           width: '100%',
         }}
       >
-        <p style={{ margin: 0, textAlign: 'center', opacity: "100%"}}> {/*Тотально переписать и переделать*/}
+        <p style={{ margin: 0, textAlign: 'center', opacity: '100%' }}>
+          {/*Тотально переписать и переделать*/}
           Hi! This site is my portfolio/website styled like Windows 7.
           I'm mostly a web developer with a passion for creating innovative and impactful applications❤️
         </p>
